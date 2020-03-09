@@ -34,9 +34,6 @@ public class ListFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    @BindView(R.id.floatingActionButton)
-    FloatingActionButton fab;
-
     public ListFragment() {
         // Required empty public constructor
     }
@@ -76,20 +73,5 @@ public class ListFragment extends Fragment {
         ButterKnife.bind(this,view);
         return view;
     }
-    public void onGoToDetails(){
 
-        ListFragmentDirections.ActionDetail actionDetail= ListFragmentDirections.actionDetail();
-        actionDetail.setDogUid(5);
-        Navigation.findNavController(fab).navigate(actionDetail);
-
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        fab.setOnClickListener(v -> {
-            onGoToDetails();
-
-        });
-    }
 }

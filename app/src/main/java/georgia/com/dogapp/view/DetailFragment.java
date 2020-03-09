@@ -91,14 +91,9 @@ public class DetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         if(getArguments()!=null){
             dogUid=DetailFragmentArgs.fromBundle(getArguments()).getDogUid();
-            textView2.setText(String.valueOf(dogUid));
+
         }
-        floatingActionButton.setOnClickListener(v -> onGoToListFragment());
-    }
-
-    public void onGoToListFragment() {
-        NavDirections navDirectionsAction = DetailFragmentDirections.actionList();
-        Navigation.findNavController(floatingActionButton).navigate(navDirectionsAction);
 
     }
+
 }
