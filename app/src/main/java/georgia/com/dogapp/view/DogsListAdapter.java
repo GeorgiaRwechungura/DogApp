@@ -15,6 +15,7 @@ import java.util.List;
 
 import georgia.com.dogapp.R;
 import georgia.com.dogapp.model.DogBreed;
+import georgia.com.dogapp.util.Util;
 
 public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogViewHolder> {
 
@@ -45,6 +46,7 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
         TextView lifeSpan=holder.itemView.findViewById(R.id.lifespan);
         name.setText(dogList.get(position).dogBreed);
         lifeSpan.setText(dogList.get(position).lifeSpan);
+        Util.loadImage(image,dogList.get(position).imageUrl,Util.getProgressDrawable(image.getContext()));
     }
 
     @Override
