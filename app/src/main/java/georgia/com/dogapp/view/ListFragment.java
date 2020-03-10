@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -16,11 +18,14 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import georgia.com.dogapp.DogsNavigationsDirections;
 import georgia.com.dogapp.R;
 import georgia.com.dogapp.model.DogBreed;
 import georgia.com.dogapp.viewModel.ListViewModel;
@@ -38,6 +43,9 @@ public class ListFragment extends Fragment {
     ProgressBar loadingView;
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.floatingActionButton)
+    FloatingActionButton floatingActionButton;
+
 
     public ListFragment() {
         // Required empty public constructor
@@ -51,6 +59,7 @@ public class ListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_list, container, false);
         ButterKnife.bind(this,view);
+
         return view;
     }
 
@@ -59,12 +68,26 @@ public class ListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel= ViewModelProviders.of(this).get(ListViewModel.class);
         viewModel.refresh();
-
         dogList.setLayoutManager(new LinearLayoutManager(getContext()));
         dogList.setAdapter(dogsListAdapter);
         observeViewModel();
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                goToDetailActivity();
+            }
+        });
+
     }
+
+    private void goToDetailActivity() {
+         ListFragmentDirections.ActionDetail actionDetail=ListFragmentDirections.actionDetail();
+         Navigation.findNavController(floatingActionButton).navigate(actionDetail);
+
+    }
+
     private  void observeViewModel(){
       viewModel.dogs.observe(this, (List<DogBreed> dogs) -> {
           if(dogs !=null && dogs instanceof  List){
