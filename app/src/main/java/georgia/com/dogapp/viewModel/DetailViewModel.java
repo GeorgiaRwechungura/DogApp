@@ -12,8 +12,6 @@ public class DetailViewModel extends ViewModel {
 
 
     public void fetch(){
-        DogBreed dog1=new DogBreed("1","corgie","6 years","German Shepard","Life","Calm and friendly","");
-        dogLiveData.setValue(dog1);
 
     }
 }

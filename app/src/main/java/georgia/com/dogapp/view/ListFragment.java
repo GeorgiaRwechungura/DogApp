@@ -79,6 +79,13 @@ public class ListFragment extends Fragment {
                 goToDetailActivity();
             }
         });
+        refreshLayout.setOnRefreshListener(() -> {
+            dogList.setVisibility(View.GONE);
+            listError.setVisibility(View.GONE);
+            loadingView.setVisibility(View.VISIBLE);
+            viewModel.refreshByPassCache();
+            refreshLayout.setRefreshing(false);
+        });
 
     }
 
