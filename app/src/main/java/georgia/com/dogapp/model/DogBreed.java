@@ -1,10 +1,11 @@
 package georgia.com.dogapp.model;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
-
+@Entity
 public class DogBreed {
 
     @ColumnInfo(name = "bree_id")
@@ -36,7 +37,7 @@ public class DogBreed {
     public String imageUrl;
 
     @PrimaryKey(autoGenerate = true)
-    public int uid;
+    public Integer uuid;
 
     public DogBreed(String breeId, String dogBreed, String lifeSpan, String breedGroup, String bredFor, String temperament, String imageUrl) {
         this.breeId = breeId;
