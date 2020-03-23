@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import georgia.com.dogapp.R;
 import georgia.com.dogapp.model.DogBreed;
+import georgia.com.dogapp.util.Util;
 import georgia.com.dogapp.viewModel.DetailViewModel;
 
 public class DetailFragment extends Fragment {
@@ -54,17 +56,21 @@ public class DetailFragment extends Fragment {
             dogUid=DetailFragmentArgs.fromBundle(getArguments()).getDogUid();
         }
         viewModel= ViewModelProviders.of(this).get(DetailViewModel.class);
-        viewModel.fetch();
+        viewModel.fetch(dogUid);
         observeViewModel();
     }
 
     private void observeViewModel(){
    viewModel.dogLiveData.observe(this, dogBreed -> {
-       if(dogBreed!=null && dogBreed instanceof DogBreed){
+       if(dogBreed!=null && dogBreed instanceof DogBreed && getContext()!=null){
            dogName.setText(dogBreed.dogBreed);
            dogLifeSpan.setText(dogBreed.lifeSpan);
            dogTemperament.setText(dogBreed.temperament);
            dogPurpose.setText(dogBreed.bredFor);
+
+           if(dogBreed.imageUrl!=null){
+               Util.loadImage(dogImage,dogBreed.imageUrl,new CircularProgressDrawable(getContext()));
+           }
        }
    });
     }
