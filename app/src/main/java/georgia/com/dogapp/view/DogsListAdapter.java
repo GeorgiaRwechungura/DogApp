@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import georgia.com.dogapp.R;
+import georgia.com.dogapp.databinding.ItemDogBinding;
 import georgia.com.dogapp.model.DogBreed;
 import georgia.com.dogapp.util.Util;
 
@@ -38,13 +40,17 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
     @Override
     public DogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-    View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dog,parent,false);
+        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        ItemDogBinding view= DataBindingUtil.inflate(inflater,R.layout.item_dog,parent,false);
            return new DogViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DogViewHolder holder, int position) {
-        ImageView image=holder.itemView.findViewById(R.id.imageView);
+
+        holder.itemView.setDog(dogList.get(position));
+
+       /* ImageView image=holder.itemView.findViewById(R.id.imageView);
         TextView name=holder.itemView.findViewById(R.id.name);
         TextView lifeSpan=holder.itemView.findViewById(R.id.lifespan);
         LinearLayout linearLayout=holder.itemView.findViewById(R.id.dogLayout);
@@ -56,7 +62,9 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
            ListFragmentDirections.ActionDetail action=ListFragmentDirections.actionDetail();
            action.setDogUid(dogList.get(position).uuid);
             Navigation.findNavController(linearLayout).navigate(action);
-        });
+        });*/
+
+
 
     }
 
@@ -66,10 +74,10 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
     }
 
     class DogViewHolder extends RecyclerView.ViewHolder{
-            public View itemView;
+            public ItemDogBinding itemView;
 
-            public DogViewHolder(@NonNull View itemView) {
-                super(itemView);
+            public DogViewHolder(@NonNull ItemDogBinding itemView) {
+                super(itemView.getRoot());
                 this.itemView=itemView;
             }
         }
