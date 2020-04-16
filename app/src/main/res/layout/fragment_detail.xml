@@ -4,12 +4,16 @@
         <variable
             name="dog"
             type="georgia.com.dogapp.model.DogBreed" />
+        <variable
+            name="palette"
+            type="georgia.com.dogapp.model.DogPalette" />
     </data>
     
 <RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@{palette.color}"
     tools:context=".view.DetailFragment">
 
 
