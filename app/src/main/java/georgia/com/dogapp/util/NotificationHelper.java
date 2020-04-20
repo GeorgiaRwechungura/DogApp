@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Icon;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import georgia.com.dogapp.R;
 import georgia.com.dogapp.view.MainActivity;
@@ -32,27 +34,29 @@ public class NotificationHelper {
         }
         return instance;
     }
-    private void createNotification(){
+    public void createNotification(){
         createNotificationChannel();
         Intent intent=new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK  | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
         PendingIntent pendingIntent=PendingIntent.getActivity(context,0,intent,0);
+
         Bitmap icon= BitmapFactory.decodeResource(context.getResources(), R.drawable.dogiconnote_one);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            Notification.Builder notification=new Notification.Builder(context,CHANNEL_ID)
+            Notification notification=new NotificationCompat.Builder(context,CHANNEL_ID)
                     .setSmallIcon(R.drawable.dogiconnote)
                     .setLargeIcon(icon)
                     .setContentTitle("Dog Retrived")
                     .setContentText("This is the notification  to let you know that the dog  information has been retrived")
-                    .setStyle(new NotificationCompat.BigPictureStyle()
-                            .bigLargeIcon(icon)
-                            .bigLargeIcon(null)
+                    .setStyle(
+                            new NotificationCompat.BigPictureStyle()
+                                    .bigPicture(icon)
+                                    .bigLargeIcon(null)
                     )
-                    .setActions()
-
-
-
-
+                    .setContentIntent(pendingIntent)
+                    .setPriority(Notification.PRIORITY_DEFAULT)
+                    .build();
+            NotificationManagerCompat.from(context).notify(NOTIFICATION_ID,notification);
         }
 
     }

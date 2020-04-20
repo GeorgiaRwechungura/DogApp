@@ -17,6 +17,7 @@ import georgia.com.dogapp.model.DogDao;
 import georgia.com.dogapp.model.DogDatabase;
 import georgia.com.dogapp.model.DogsApiService;
 
+import georgia.com.dogapp.util.NotificationHelper;
 import georgia.com.dogapp.util.SharedPreferenceHelper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -72,6 +73,7 @@ public class ListViewModel extends AndroidViewModel {
                             insertTask=new insertDogTask();
                             insertTask.execute(dogBreeds);
                                 Toast.makeText(getApplication(),"Dog Retrived from Endpoint",Toast.LENGTH_LONG).show();
+                                NotificationHelper.getInstance(getApplication()).createNotification();
                                 prefsHelper.saveUpdateTime(System.nanoTime());
                             }
 
