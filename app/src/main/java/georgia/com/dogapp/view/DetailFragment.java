@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.palette.graphics.Palette;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -41,9 +43,12 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false);
+        setHasOptionsMenu(true);
         this.binding = binding;
         return binding.getRoot();
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -92,5 +97,11 @@ public class DetailFragment extends Fragment {
                     }
                 });
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+       // inflater.inflate(R.menu.);
     }
 }
