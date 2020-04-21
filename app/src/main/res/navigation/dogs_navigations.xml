@@ -14,6 +14,9 @@
         <action
             android:id="@+id/actionDetail"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/actionSettings"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -32,4 +35,8 @@
         app:destination="@id/detailFragment"
         app:popUpTo="@id/detailFragment"
         app:launchSingleTop="true" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="georgia.com.dogapp.view.SettingFragment"
+        android:label="SettingFragment" />
 </navigation>
